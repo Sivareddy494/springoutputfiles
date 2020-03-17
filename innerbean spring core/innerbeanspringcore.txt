@@ -1,0 +1,91 @@
+HelloWorld.java
+
+-----------------------
+
+package springinnerbean;
+public class HelloWorld {
+private IBean ib;
+public void setIb(IBean ib)
+{
+	this.ib=ib;
+}
+public String toString()
+{
+	return "HelloWorld! \n"+ib;
+}
+}
+
+
+
+
+
+IBean.java
+
+
+--------------------------
+package springinnerbean;
+public class IBean {
+private String name;
+
+public String getName() {
+	return name;
+}
+
+public void setName(String name) {
+	this.name = name;
+}
+@Override
+public String toString()
+{
+	return "I am "+name+"of inner bean";
+}
+}
+
+
+
+
+main.java
+
+--------------------
+package springinnerbean;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import springinnerbean.HelloWorld;
+
+public class main {
+public static void main(String[] args)
+{
+	ApplicationContext context = new ClassPathXmlApplicationContext("springinnerbean/applicationContext.xml");
+	HelloWorld helloWorld =(HelloWorld)context.getBean("helloWorldBean");
+	System.out.println(helloWorld);
+}
+}
+
+
+applicationContext.xml
+
+------------------------------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://wwww.springframework.org/schema/p"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+<bean id="helloWorldBean" class="springinnerbean.HelloWorld">
+<property name="ib">
+<bean class="springinnerbean.IBean">
+<property name="name" value="Bean"/></bean>
+</property>
+</bean>
+</beans>
+
+
+run the main file 
+
+
+
+
